@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Orçamento de Embalagem</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 12px;
+    background: #f1f3f5;
+    font-family: Arial, sans-serif;
+    color: #222;
+}
+
+.container {
+    max-width: 520px;
+    margin: auto;
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.10);
+}
+
+h1 {
+    text-align: center;
+    font-size: 21px;
+    margin: 5px 0 20px;
+}
+
+.campo {
+    margin-bottom: 15px;
+}
+
+.titulo {
+    display: block;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    font-size: 16px;
+    background: white;
+}
+
+.medidas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 7px;
+}
+
+.medidas input {
+    text-align: center;
+}
+
+.opcoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.opcao {
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.opcao input {
+    margin-right: 5px;
+}
+
+.acabamentos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.acabamento {
+    padding: 11px 8px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.acabamento input {
+    margin-right: 5px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #168a45;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.98);
+}
+
+.limpar {
+    margin-top: 8px;
+    background: #777;
+    font-size: 14px;
+    padding: 11px;
+}
+
+.resultado {
+    display: none;
+    margin-top: 18px;
+    padding: 14px;
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+.resultado textarea {
+    min-height: 230px;
+    background: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📦 ORÇAMENTO — EMBALAGEM</h1>
+
+<div class="campo">
+<span class="titulo">📏 Medidas (mm)</span>
+
+<div class="medidas">
+<input type="number" id="largura" placeholder="Largura">
+<input type="number" id="altura" placeholder="Altura">
+<input type="number" id="fundo" placeholder="Fundo">
+</div>
+</div>
+
+<div class="campo">
+<span class="titulo">📐 Espessura (µm)</span>
+<input type="number" id="espessura" placeholder="Ex.: 80">
+</div>
+
+<div class="campo">
+<span class="titulo">🧱 Material</span>
+<input type="text" id="material" placeholder="Ex.: BOPP + PE">
+</div>
+
+<div class="campo">
+<span class="titulo">📦 Quantidade</span>
+<input type="text" id="quantidade" placeholder="Ex.: 10.000">
+</div>
+
+<div class="campo">
+<span class="titulo">🛍️ Zíper</span>
+
+<div class="opcoes">
+<label class="opcao">
+<input type="radio" name="ziper" value="Sim"> Sim
+</label>
+
+<label class="opcao">
+<input type="radio" name="ziper" value="Não"> Não
+</label>
+</div>
+</div>
+
+<div class="campo">
+<span class="titulo">⭕ Ilhós</span>
+
+<div class="opcoes">
+<label class="opcao">
+<input type="radio" name="ilhos" value="Sim"> Sim
+</label>
+
+<label class="opcao">
+<input type="radio" name="ilhos" value="Não"> Não
+</label>
+</div>
+</div>
+
+<div class="campo">
+<span class="titulo">☕ Válvula para Café</span>
+
+<div class="opcoes">
+<label class="opcao">
+<input type="radio" name="valvula" value="Sim"> Sim
+</label>
+
+<label class="opcao">
+<input type="radio" name="valvula" value="Não"> Não
+</label>
+</div>
+</div>
+
+<div class="campo">
+<span class="titulo">🎨 Impressão</span>
+
+<div class="opcoes">
+<label class="opcao">
+<input type="radio" name="impressao" value="Sim"> Sim
+</label>
+
+<label class="opcao">
+<input type="radio" name="impressao" value="Não"> Não
+</label>
+</div>
+</div>
+
+<div class="campo">
+<span class="titulo">⚙️ Acabamento</span>
+
+<div class="acabamentos">
+
+<label class="acabamento">
+<input type="checkbox" name="acabamento" value="Bobina">
+Bobina
+</label>
+
+<label class="acabamento">
+<input type="checkbox" name="acabamento" value="Solda lateral">
+Solda lateral
+</label>
+
+<label class="acabamento">
+<input type="checkbox" name="acabamento" value="Solda pouch lateral">
+Pouch lateral
+</label>
+
+<label class="acabamento">
+<input type="checkbox" name="acabamento" value="Solda pouch transversal">
+Pouch transversal
+</label>
+
+<label class="acabamento">
+<input type="checkbox" name="acabamento" value="Solda 4 soldas">
+4 soldas
+</label>
+
+<label class="acabamento">
+<input type="checkbox" name="acabamento" value="Solda 1 ponta">
+1 ponta
+</label>
+
+<label class="acabamento">
+<input type="checkbox" name="acabamento" value="Solda fundo">
+Fundo
+</label>
+
+</div>
+</div>
+
+<div class="campo">
+<span class="titulo">📝 Observações</span>
+
+<textarea id="observacoes"
+placeholder="Informações adicionais..."></textarea>
+</div>
+
+<button onclick="gerarOrcamento()">
+📋 GERAR ORÇAMENTO
+</button>
+
+<div class="resultado" id="resultado">
+
+<span class="titulo">Mensagem pronta para enviar:</span>
+
+<textarea id="mensagemFinal" readonly></textarea>
+
+<button onclick="copiarMensagem()">
+📋 COPIAR MENSAGEM
+</button>
+
+</div>
+
+<button class="limpar" onclick="limparFormulario()">
+Limpar formulário
+</button>
+
+</div>
+
+
+<script>
+
+function opcao(nome) {
+
+    const selecionado =
+    document.querySelector(
+        'input[name="' + nome + '"]:checked'
+    );
+
+    return selecionado
+        ? selecionado.value
+        : "Não informado";
+}
+
+
+function gerarOrcamento() {
+
+    const largura =
+    document.getElementById("largura").value || "___";
+
+    const altura =
+    document.getElementById("altura").value || "___";
+
+    const fundo =
+    document.getElementById("fundo").value || "___";
+
+    const espessura =
+    document.getElementById("espessura").value || "___";
+
+    const material =
+    document.getElementById("material").value || "Não informado";
+
+    const quantidade =
+    document.getElementById("quantidade").value || "Não informado";
+
+    const observacoes =
+    document.getElementById("observacoes").value || "Nenhuma";
+
+
+    const acabamentos =
+    Array.from(
+        document.querySelectorAll(
+            'input[name="acabamento"]:checked'
+        )
+    ).map(item => item.value);
+
+
+    const acabamentoTexto =
+    acabamentos.length
+    ? acabamentos.join(", ")
+    : "Não informado";
+
+
+    const mensagem =
+
+`📦 *ORÇAMENTO — EMBALAGEM*
+
+📏 *Medidas:* ${largura} × ${altura} × ${fundo} mm
+📐 *Espessura:* ${espessura} µm
+🧱 *Material:* ${material}
+📦 *Quantidade:* ${quantidade}
+
+🛍️ *Zíper:* ${opcao("ziper")}
+⭕ *Ilhós:* ${opcao("ilhos")}
+☕ *Válvula Café:* ${opcao("valvula")}
+🎨 *Impressão:* ${opcao("impressao")}
+
+⚙️ *Acabamento:* ${acabamentoTexto}
+
+📝 *Observações:* ${observacoes}`;
+
+
+    document.getElementById("mensagemFinal").value =
+    mensagem;
+
+    document.getElementById("resultado").style.display =
+    "block";
+
+    document.getElementById("resultado")
+    .scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+
+function copiarMensagem() {
+
+    const texto =
+    document.getElementById("mensagemFinal").value;
+
+    navigator.clipboard.writeText(texto);
+
+    alert("Mensagem copiada! Agora é só colar no WhatsApp.");
+}
+
+
+function limparFormulario() {
+
+    document.querySelectorAll("input").forEach(input => {
+
+        if (
+            input.type === "text" ||
+            input.type === "number"
+        ) {
+            input.value = "";
+        } else {
+            input.checked = false;
+        }
+
+    });
+
+    document.getElementById("observacoes").value = "";
+
+    document.getElementById("resultado").style.display =
+    "none";
+}
+
+</script>
+
+</body>
+</html>
